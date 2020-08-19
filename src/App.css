@@ -1,38 +1,476 @@
-.App {
-  text-align: center;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --main-blue: #1da1f2;
+  --text-bllack: #14171a;
+  --dark-gray: #657786;
+  --light-gray: #aab8c2;
+  --extra-light-gray: #e1e8ed;
+  --extra-extra-light-gray: #f5f8fa;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  font-family: 'Roboto', sans-serif;
+
+  /* background: var(--extra-extra-light-gray); */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+img {
+  max-width: 100%;
+}
+
+.container {
+  margin: 0 auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.control-panel {
+  width: 25%;
+  position: fixed;
+  overflow-y: scroll;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.float-right {
+  float: right;
+  width: 75%;
+  margin-top: 0vh;
+}
+
+.home-section {
+  width: 60%;
+}
+
+.search-section {
+  width: 40%;
+}
+
+.icons-section {
+  margin-top: 70px;
+}
+
+.icons-container {
+  width: 75%;
+  margin: 0 auto;
+}
+
+.icon {
+  margin-right: 20px;
+}
+
+.icon-name {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.icon-name:active {
+  background-color: var(--extra-light-gray);
+  color: var(--main-blue);
+}
+
+.a-icon {
+  font-size: 35px;
+}
+
+.namee {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.icon-name:hover {
+  background-color: var(--extra-light-gray);
+  width: 80%;
+  border-radius: 200px;
+  color: var(--main-blue);
+}
+
+.big-tweet-btn {
+  width: 100%;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  margin-top: 20px;
+  border-radius: 200px;
+  outline: none;
+  border: none;
+  background-color: var(--main-blue);
+  opacity: 0.9;
+  color: var(--extra-extra-light-gray);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.big-tweet-btn:hover {
+  opacity: 1;
+}
+
+.profile-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding: 2px;
+}
+
+.p-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+  cursor: pointer;
+  background-color: inherit;
+  border-radius: 200px;
+  padding: 5px 13px;
+}
+
+.p-col + .p-col {
+  margin-left: 5px;
+}
+
+.p-circle:hover {
+  background-color: var(--extra-light-gray);
+  border-radius: 200px;
+  padding: 5px 13px;
+}
+/* .profile-circle {
+  background-color: hotpink;
+  border-radius: 200px;
+  padding: 5px 13px;
+} */
+
+.profile-details h3 {
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.profile-details p {
+  font-size: 14px;
+  color: var(--dark-gray);
+}
+.p-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* SECOND PHASE */
+.home-content {
+  border-right: 1px solid var(--extra-light-gray);
+}
+
+.top-home-bar {
+  background: white;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  position: fixed;
+  width: 45%;
+  border-bottom: 1px solid var(--extra-light-gray);
+  border-right: 1px solid var(--extra-light-gray);
+  padding-left: 30px;
+  z-index: 2;
+}
+
+.user-form-profile-details {
+  padding-top: 70px;
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.user-form-profile {
+  border-bottom: 10px solid var(--extra-light-gray);
+  padding-bottom: 10px;
+}
+
+.user-img {
+  width: 10%;
+}
+.img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.form-details {
+  width: 89%;
+}
+
+.form-details input {
+  width: 100%;
+  padding: 20px 4px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  color: var(--text-bllack);
+}
+
+.form-details input::placeholder {
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--light-gray);
+}
+
+.tweet-btn {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 200px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: var(--main-blue);
+  opacity: 0.4;
+  color: var(--extra-extra-light-gray);
+}
+
+.down-controls {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--main-blue);
+}
+
+.insert-icons {
+  background-color: inherit;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.insert-icons:hover {
+  background-color: var(--extra-light-gray);
+  padding: 5px;
+  border-radius: 50%;
+  color: var(--main-blue);
+}
+
+.count-tweet {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.count-cirle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid var(--main-blue);
+}
+
+.ccol + .ccol {
+  margin-left: 10px;
+}
+
+.tweets-display {
+  padding-top: 10px;
+  padding-bottom: 17px;
+  border-bottom: 1px solid var(--extra-light-gray);
+  transition: 0.3s;
+}
+
+.tweets-display:hover {
+  background-color: var(--extra-extra-light-gray);
+}
+
+.tweet-container {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.tweet-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.img-section {
+  width: 10%;
+}
+
+.single-tweet {
+  width: 89%;
+}
+
+.imgg {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.user-handle {
+  margin-left: 5px;
+}
+
+.user-handle,
+.time {
+  color: var(--dark-gray);
+  font-size: 15px;
+}
+
+.bull {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.tweet-controls-icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-top: 10px;
+}
+
+.tweet-icons {
+  color: var(--light-gray);
+  transition: 0.3s;
+  background-color: initial;
+  padding: 7px;
+  border-radius: 50%;
+}
+
+.tweet-icons:hover {
+  color: var(--main-blue);
+  background-color: var(--extra-light-gray);
+  padding: 7px;
+  border-radius: 50%;
+}
+
+.top-search-bar {
+  position: fixed;
+  width: 30%;
+  z-index: 2;
+  padding-top: 10px;
+  padding-bottom: 7px;
+  background-color: white;
+}
+
+.search-display {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.search-input input {
+  width: 100%;
+  background-color: var(--extra-light-gray);
+}
+
+.search-input input::placeholder {
+  padding-left: 20px;
+  font-size: 16px;
+  color: var(--dark-gray);
+}
+
+.search-display input[type='text'] {
+  position: relative;
+  padding: 12px 40px 12px 5px;
+  width: 20px;
+  color: #525252;
+  font-size: 15px;
+  font-weight: 100;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(to right, #ffffff 0%, #464747 #f9f9f9 100%);
+  transition: width 0.4s ease;
+  outline: none;
+}
+
+.search-display input[type='text']:focus {
+  width: 300px;
+}
+
+.fa-search {
+  position: relative;
+  left: -35px;
+  top: 2px;
+  color: var(--dark-gray);
+}
+
+.search-output {
+  padding-top: 70px;
+}
+
+.search-account {
+  background-color: var(--extra-extra-light-gray);
+  border-bottom: 1px solid var(--extra-light-gray);
+  padding-top: 10px;
+}
+
+.search-account:first-child {
+  background-color: var(--extra-extra-light-gray);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.search-account:last-child {
+  background-color: var(--extra-extra-light-gray);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.search-account:hover,
+.search-account:first-child:hover,
+.search-account:last-child:hover {
+  background-color: var(--extra-light-gray);
+}
+
+.account-display {
+  display: flex;
+  align-items: center;
+}
+
+.acc-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.account-follow a {
+  text-decoration: none;
+  border: 1px solid var(--main-blue);
+  padding: 5px 20px;
+  border-radius: 50px;
+  color: var(--main-blue);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.account-follow a:hover {
+  background-color: var(--light-gray);
+  opacity: 0.6;
+}
+
+.acc-col + .acc-col {
+  margin-left: 10px;
+}
+
+.follow-col {
+  margin-left: 100px;
+}
+
+.acc {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.footer {
+  margin-top: 100px;
+  text-align: center;
+  text-transform: capitalize;
+  color: var(--dark-gray);
 }
