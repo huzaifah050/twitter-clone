@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.css';
 import MainDisplay from './components/layouts/MainDisplay';
+import { ThemeProvider, CSSReset } from '@chakra-ui/core';
 
 function App() {
   return (
     <>
-      <MainDisplay />
+      <ThemeProvider>
+        <CSSReset />
+        <MainDisplay />
+      </ThemeProvider>
     </>
   );
 }
