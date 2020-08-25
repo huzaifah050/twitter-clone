@@ -9,6 +9,7 @@ import store from './components/store';
 import firebase from './Firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
+import AuthIsLoaded from './components/AuthIsLoaded';
 
 // react-redux-firebase config
 const rrfConfig = {
@@ -28,7 +29,9 @@ ReactDOM.render(
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <BrowserRouter>
-          <App />
+          <AuthIsLoaded>
+            <App />
+          </AuthIsLoaded>
         </BrowserRouter>
       </ReactReduxFirebaseProvider>
     </Provider>

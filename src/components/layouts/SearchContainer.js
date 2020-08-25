@@ -1,7 +1,14 @@
 import React from 'react';
 import SearchOutput from './SearchOutput';
+import { connect } from 'react-redux';
+import { signOut } from '../store/actions/authActions';
 
-function SearchContainer() {
+function SearchContainer(props) {
+  const logout = () => {
+    console.log(1);
+    props.signOut();
+  };
+
   return (
     <div className="search-section col">
       <div className="top-search-bar">
@@ -27,6 +34,10 @@ function SearchContainer() {
         </div>
       </div>
 
+      <button className="logout-btn" type="button" onClick={logout}>
+        Logout
+      </button>
+
       <div className="footer">
         <span className="rights">all rights cloned</span>|
         <span className="date">&copy;2020</span>
@@ -35,4 +46,8 @@ function SearchContainer() {
   );
 }
 
-export default SearchContainer;
+const mapDispatchToProps = {
+  signOut,
+};
+
+export default connect(null, mapDispatchToProps)(SearchContainer);

@@ -5,12 +5,14 @@ import { ThemeProvider, CSSReset } from '@chakra-ui/core';
 import { Switch, Route } from 'react-router-dom';
 import WelcomePage from './components/layouts/WelcomePage';
 import LoginPage from './components/layouts/auth/LoginPage';
+// import ProtectedRoutes from './components/layouts/auth/ProtectedRoutes';
 
 function App() {
   return (
     <>
       <ThemeProvider>
         <CSSReset />
+
         <Switch>
           <Route exact path="/" component={MainDisplay} />
           <Route path="/welcome" component={WelcomePage} />

@@ -5,12 +5,14 @@ import Loading from './layouts/Loading';
 
 function AuthIsLoaded({ children }) {
   const auth = useSelector((state) => state.firebase.auth);
-  if (!isLoaded(auth))
+  if (!isLoaded(auth)) {
     return (
       <>
         <Loading />
       </>
     );
+  }
+
   return children;
 }
 

@@ -1,8 +1,13 @@
 import React from 'react';
 import ControlPanel from './ControlPanel';
-import RightContainer from './RightContainer';
+import RightContainer from './secondGrid/RightContainer';
+import { Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function MainDisplay() {
+  const auth = useSelector((state) => state.firebase.auth);
+  if (!auth.uid) return <Redirect to="/welcome" />;
+
   return (
     <div className="parent-container">
       <div className="control-panel col">

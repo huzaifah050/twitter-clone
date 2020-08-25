@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FirstModal from './auth/registeration/FirstModal';
-import ParentRegisteration from './auth/registeration/ParentRegisteration';
+
+
 
 function WelcomePage() {
   return (
@@ -33,8 +34,8 @@ function WelcomePage() {
               {/* <button className="sign-up" type="button">
                 Sign up
               </button> */}
-              {/* <FirstModal /> */}
-              <ParentRegisteration />
+              <FirstModal />
+              {/* <ParentRegisteration /> */}
               <Link to="/login">
                 <button className="log-in" type="button">
                   Log in

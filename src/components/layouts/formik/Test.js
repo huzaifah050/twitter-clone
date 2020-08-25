@@ -1,53 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
-import FormikControl from '../formik/FormikControl';
-import { connect } from 'react-redux';
-import { login } from '../../store/actions/authActions';
-import { useHistory } from 'react-router-dom';
-import { useToast } from '@chakra-ui/core';
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import FormikControl from './FormikControl';
 
-function LoginPage(props) {
+function Test() {
   const initialValues = {
     email: '',
     password: '',
   };
-  const auth = useSelector((state) => state.firebase.auth);
-
-  // useEffect(() => {
-  //   if (auth.uid) return <Redirect to="/" />;
-  //   console.log('test');
-  // }, [auth.uid]);
-  const toast = useToast();
-  const fnToast = () => {
-    toast({
-      title: 'Logged in',
-      description: 'Log in successful',
-      status: 'success',
-      duration: 5000,
-      isClosable: true,
-    });
-  };
-
-  const toastFail = () => {
-    toast({
-      title: 'Logged in',
-      description: 'Log in fail',
-      status: 'success',
-      duration: 10000,
-      isClosable: true,
-    });
-  };
-
-  function checkToast() {
-    if (auth.uid) {
-      fnToast();
-    } else {
-      toastFail();
-    }
-  }
 
   const validationScheme = Yup.object({
     email: Yup.string()
@@ -55,26 +15,17 @@ function LoginPage(props) {
       .required('Email is required 😔 '),
     password: Yup.string()
       .required('Password is required 😔 ')
-      .min(8, 'Password is too short - should be 8 characters minimum. 😔 '),
+      .min(8, 'Password is too short - should be 8 chars minimum. 😔 '),
   });
-
-  const history = useHistory();
 
   const onsubmit = (values) => {
     console.log('Form data', values);
-    props.login(values);
-    history.push('/');
-    // fnToast();
-    checkToast();
   };
-  if (auth.uid) return <Redirect to="/" />;
-
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationScheme}
       onSubmit={onsubmit}
-      validateOnMount={true}
     >
       {(formik) => {
         return (
@@ -113,8 +64,4 @@ function LoginPage(props) {
   );
 }
 
-const mapDispatchToProps = {
-  login,
-};
-
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default Test;

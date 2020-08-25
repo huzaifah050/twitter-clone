@@ -475,6 +475,14 @@ img {
   color: var(--dark-gray);
 }
 
+.logout-btn {
+  background: var(--main-blue);
+  margin-left: 100px;
+  margin-top: 10px;
+  color: var(--extra-extra-light-gray);
+  padding: 5px;
+}
+
 /* Welcome Page */
 
 .welcome-container {

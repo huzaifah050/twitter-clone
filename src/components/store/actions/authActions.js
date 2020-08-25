@@ -3,6 +3,8 @@ import {
   SIGN_UP_FAILURE,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
 } from '../types';
 
 export const login = (values) => {
@@ -34,21 +36,10 @@ export const signUp = (values) => {
       .auth()
       .createUserWithEmailAndPassword(values.email, values.password)
       .then((res) => {
-        console.log(res.user.uid);
-        return firestore
-          .collection(`/users/${res.user.uid}/userdetails`)
-          .doc(res.user.uid)
-          .set({
-            name: values.name,
-            username: values.username,
-            dateJoined: new Date(),
-          })
-          .then(() => {
-            firestore.collection(`user`).doc(res.user.uid).set({
-              name: values.name,
-              username: values.username,
-            });
-          });
+        console.log(res);
+        return firestore.collection(`users`).doc(res.user.uid).set({
+          name: values.name,
+        });
       })
       .then(() => {
         dispatch({ type: SIGN_UP_SUCCESS });
@@ -66,10 +57,10 @@ export const signOut = () => {
       .auth()
       .signOut()
       .then(() => {
-        dispatch({ type: 'SIGNOUT_SUCCESS' });
+        dispatch({ type: LOGOUT_SUCCESS });
       })
       .catch((err) => {
-        console.log(err.message);
+        dispatch({ type: LOGOUT_FAILURE, payload: err.message });
       });
   };
 };
