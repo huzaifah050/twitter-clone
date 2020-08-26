@@ -15,11 +15,13 @@ function LoginPage(props) {
     password: '',
   };
   const auth = useSelector((state) => state.firebase.auth);
+  const history = useHistory();
 
   // useEffect(() => {
   //   if (auth.uid) return <Redirect to="/" />;
   //   console.log('test');
   // }, [auth.uid]);
+
   const toast = useToast();
   const fnToast = () => {
     toast({
@@ -58,14 +60,26 @@ function LoginPage(props) {
       .min(8, 'Password is too short - should be 8 characters minimum. 😔 '),
   });
 
-  const history = useHistory();
+  const wait = () => {
+    console.log('calling..');
+
+    const time = setTimeout(() => {
+      history.push('/');
+    }, 3000);
+
+    clearTimeout(time);
+
+    console.log('wait..');
+  };
 
   const onsubmit = (values, onSubmitProps) => {
     console.log('Form data', values);
     props.login(values);
-    history.push('/');
+    // history.push('/');
+    wait();
     // fnToast();
-    checkToast();
+    // checkToast();
+
     onSubmitProps.isSubmitting(false);
   };
   if (auth.uid) return <Redirect to="/" />;
@@ -101,7 +115,7 @@ function LoginPage(props) {
                 <button
                   className="log"
                   type="submit"
-                  disabled={!formik.isValid && formik.isSubmitting}
+                  disabled={formik.isSubmitting}
                 >
                   Logging in..
                 </button>
