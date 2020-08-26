@@ -60,12 +60,13 @@ function LoginPage(props) {
 
   const history = useHistory();
 
-  const onsubmit = (values) => {
+  const onsubmit = (values, onSubmitProps) => {
     console.log('Form data', values);
     props.login(values);
     history.push('/');
     // fnToast();
     checkToast();
+    onSubmitProps.isSubmitting(false);
   };
   if (auth.uid) return <Redirect to="/" />;
 
@@ -96,9 +97,30 @@ function LoginPage(props) {
                 name="password"
                 autoComplete="new-password"
               />
-              <button className="log" type="submit" disabled={!formik.isValid}>
+              {formik.isSubmitting ? (
+                <button
+                  className="log"
+                  type="submit"
+                  disabled={!formik.isValid && formik.isSubmitting}
+                >
+                  Logging in..
+                </button>
+              ) : (
+                <button
+                  className="log"
+                  type="submit"
+                  disabled={!formik.isValid}
+                >
+                  Log in
+                </button>
+              )}
+              {/* <button
+                className="log"
+                type="submit"
+                disabled={!formik.isValid && formik.isSubmitting}
+              >
                 Log in
-              </button>
+              </button> */}
             </Form>
 
             <div className="forget-details">
