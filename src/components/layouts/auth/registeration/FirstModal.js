@@ -18,8 +18,11 @@ import FormikControl from '../../formik/FormikControl';
 import { signUp } from '../../../store/actions/authActions';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function FirstModal(props) {
+  const isLogged = useSelector((state) => state.auth.isLogged);
+
   const [scrollBehavior] = React.useState('outside');
   const toast = useToast();
 
@@ -65,15 +68,17 @@ function FirstModal(props) {
   const onsubmit = (values) => {
     console.log('Form data', values);
     props.signUp(values);
+
+    console.log(isLogged);
+    console.log('modal submit');
     history.push('/');
-    fnToast();
+    // if (isLogged) {
+
+    //   console.log(isLogged);
+    // }
   };
 
-  console.log(props);
-
   return (
-
-    
     <Formik
       initialValues={initialValues}
       validationSchema={validationScheme}
@@ -147,6 +152,7 @@ function FirstModal(props) {
                         >
                           Sign up!
                         </Button>
+
                         <Button onClick={onClose}>Cancel</Button>
                       </ModalFooter>
                     </Form>
