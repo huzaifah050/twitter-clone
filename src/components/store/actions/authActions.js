@@ -39,11 +39,17 @@ export const signUp = (values) => {
         console.log(res);
         return firestore.collection(`users`).doc(res.user.uid).set({
           name: values.name,
+          handle: values.handle,
+          dateJoined: new Date(),
+          following: 0,
+          followers: 0,
+          bio: 'Fake bio',
         });
       })
       .then(() => {
         dispatch({ type: SIGN_UP_SUCCESS });
       })
+      .then(() => dispatch({ type: 'TEST' }))
       .catch((err) => {
         dispatch({ type: SIGN_UP_FAILURE, payload: err.message });
       });
