@@ -15,6 +15,8 @@ function LoginPage(props) {
     password: '',
   };
   const auth = useSelector((state) => state.firebase.auth);
+  const isLogged = useSelector((state) => state.auth.isLogged);
+  console.log(isLogged);
   const history = useHistory();
 
   // useEffect(() => {
@@ -37,7 +39,7 @@ function LoginPage(props) {
     toast({
       title: 'Logged in',
       description: 'Log in fail',
-      status: 'success',
+      status: 'warning',
       duration: 10000,
       isClosable: true,
     });
@@ -60,25 +62,28 @@ function LoginPage(props) {
       .min(8, 'Password is too short - should be 8 characters minimum. 😔 '),
   });
 
-  const wait = () => {
-    console.log('calling..');
+  // const wait = () => {
+  //   console.log('calling..');
 
-    const time = setTimeout(() => {
-      history.push('/');
-    }, 3000);
+  //   const time = setTimeout(() => {
+  //     history.push('/');
+  //   }, 3000);
 
-    clearTimeout(time);
+  //   clearTimeout(time);
 
-    console.log('wait..');
-  };
+  //   console.log('wait..');
+  // };
 
   const onsubmit = (values, onSubmitProps) => {
     console.log('Form data', values);
     props.login(values);
-    // history.push('/');
-    wait();
+    console.log(isLogged);
+    if (isLogged) {
+      history.push('/');
+      checkToast();
+    }
+    // wait();
     // fnToast();
-    // checkToast();
 
     onSubmitProps.isSubmitting(false);
   };
