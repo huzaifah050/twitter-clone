@@ -5,3 +5,6 @@ export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+export const ADD_TODO = 'ADD_TODO';
+export const ADD_TODO_FAILURE = 'ADD_TODO_FAILURE';
+export const IMAGE_UPLOADED = 'IMAGE_UPLOADED';
