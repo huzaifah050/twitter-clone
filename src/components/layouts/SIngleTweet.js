@@ -1,32 +1,46 @@
 import React from 'react';
-import img from '../../imgs/img.jpg';
+import moment from 'moment';
 
-function SIngleTweet() {
+function SIngleTweet({ tweet, picture, userImg }) {
   return (
     <div className="tweets-display">
       <div className="tweet-container">
         <div className="tweet-content">
           <div className="img-section">
-            <img src={img} className="imgg" alt="" />
+            <img src={tweet.photo || userImg} className="imgg" alt="" />
+            {/* {tweet.photo ? (
+                <img src={tweet.photo} className="imgg" alt="" />
+              ) : (
+                <img src={userImg} className="imgg" alt="" />
+              )} */}
           </div>
           <div className="single-tweet">
             <div className="user-handle-time">
               <p>
-                <span className="user-name">Human Being</span>
-                <span className="user-handle">@umfrumf</span>
+                <span className="user-name">{tweet.name}</span>
+                <span className="user-handle">{`@${tweet.handle}`}</span>
                 <span className="bull">&bull;</span>
-                <span className="time">19m</span>
+                <span className="time">
+                  {moment(tweet.date.toDate().toString()).fromNow()}
+                </span>
               </p>
             </div>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Corporis, at.
-            </p>
+            <p>{tweet.tweet}</p>
             <div className="tweet-controls-icons">
-              <i className="far fa-comment tweet-icons"></i>
-              <i className="fas fa-retweet tweet-icons"></i>
-              <i className="fas fa-heart tweet-icons"></i>
-              <i className="fas fa-trash tweet-icons"></i>
+              <div className="interactions-container">
+                <i className="far fa-comment tweet-icons"></i>
+              </div>
+              <div className="interactions-container">
+                <i className="fas fa-retweet tweet-icons"></i>
+                <p className="interaction-count">{tweet.numRetweeted}</p>
+              </div>
+              <div className="interactions-container">
+                <i className="fas fa-heart tweet-icons"></i>
+                <p className="interaction-count">{tweet.numLiked}</p>
+              </div>
+              <div className="interactions-container">
+                <i className="fas fa-trash tweet-icons"></i>
+              </div>
             </div>
           </div>
         </div>
