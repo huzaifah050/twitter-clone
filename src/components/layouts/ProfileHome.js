@@ -21,20 +21,18 @@ function ProfileHome({ users, tweets, uid, pictures }) {
     const picture = pictures
       ? pictures.find((picture) => picture.id === auth.uid)
       : null;
-
-    if (picture) {
-    }
-
+    // console.log(picture);
     return (
       <div className="home-section col">
         <div className="home-content">
           <div className="top-home-bar">
-            <div className="top-profile">
-              <Link to="/">
+            <Link to="/">
+              <div className="top-profile">
                 <i className="fas fa-long-arrow-alt-left"></i>
-              </Link>
-              <h2>{user.name}</h2>
-            </div>
+
+                <h2>{user.name}</h2>
+              </div>
+            </Link>
           </div>
 
           <div className="user-profile-container">
@@ -73,7 +71,7 @@ function ProfileHome({ users, tweets, uid, pictures }) {
 
           <div className="all-tweets all-tweets-profile">
             <TweetTabs
-              picture={picture}
+              pictures={pictures}
               userImg={userImg}
               tweets={tweets}
               uid={uid}
