@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import WelcomePage from './components/layouts/WelcomePage';
 import LoginPage from './components/layouts/auth/LoginPage';
 import Profile from './components/layouts/Profile';
+import SingleDetails from './components/layouts/singleDetails/SingleDetails';
 // import ProtectedRoutes from './components/layouts/auth/ProtectedRoutes';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/welcome" component={WelcomePage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/profile" component={Profile} />
+          <Route path="/tweet/:tweet_id" component={SingleDetails} />
         </Switch>
       </ThemeProvider>
     </>
