@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FirstModal from './auth/registeration/FirstModal';
-
-
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 function WelcomePage() {
+  const auth = useSelector((state) => state.firebase.auth);
+  if (!auth.isLoaded) return null;
+  if (auth.uid) return <Redirect to="/" />;
+
   return (
     <div className="welcome-container">
       <div className="first-half">
@@ -48,5 +52,13 @@ function WelcomePage() {
     </div>
   );
 }
+
+// const mapStateToProps = (state) => ({
+
+// })
+
+// const mapDispatchToProps = {
+
+// }
 
 export default WelcomePage;
