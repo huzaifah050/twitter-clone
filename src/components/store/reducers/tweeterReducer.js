@@ -1,6 +1,15 @@
-import { ADD_TODO, ADD_TODO_FAILURE, IMAGE_UPLOADED } from '../types';
+import {
+  ADD_TODO,
+  ADD_TODO_FAILURE,
+  IMAGE_UPLOADED,
+  WHICH_ROUTE,
+  HOME_ROUTE,
+} from '../types';
 
-const initialState = {};
+const initialState = {
+  url: null,
+  atHome: true,
+};
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
@@ -12,7 +21,15 @@ export default (state = initialState, { type, payload }) => {
       return state;
     case IMAGE_UPLOADED:
       console.log('image uploaded');
-      return state;
+      console.log(payload);
+      return { ...state, url: payload };
+
+    case WHICH_ROUTE:
+      // console.log('route testing');
+      return { ...state, atHome: false };
+    case HOME_ROUTE:
+      // console.log('route testing');
+      return { ...state, atHome: true };
     default:
       return state;
   }

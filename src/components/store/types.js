@@ -8,3 +8,5 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 export const ADD_TODO = 'ADD_TODO';
 export const ADD_TODO_FAILURE = 'ADD_TODO_FAILURE';
 export const IMAGE_UPLOADED = 'IMAGE_UPLOADED';
+export const WHICH_ROUTE = 'WHICH_ROUTE';
+export const HOME_ROUTE = 'HOME_ROUTE';

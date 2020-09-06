@@ -27,7 +27,7 @@ export const login = (values) => {
   };
 };
 
-export const signUp = (values) => {
+export const signUp = (values, onSuccess, onError) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     const firestore = getFirestore();
@@ -59,11 +59,13 @@ export const signUp = (values) => {
 export const signOut = () => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
+    const user = getFirebase().auth().currentUser;
     firebase
       .auth()
       .signOut()
       .then(() => {
         dispatch({ type: LOGOUT_SUCCESS });
+        console.log(user);
       })
       .catch((err) => {
         dispatch({ type: LOGOUT_FAILURE, payload: err.message });

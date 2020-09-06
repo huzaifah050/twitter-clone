@@ -1,4 +1,10 @@
-import { ADD_TODO, ADD_TODO_FAILURE, IMAGE_UPLOADED } from '../types';
+import {
+  ADD_TODO,
+  ADD_TODO_FAILURE,
+  IMAGE_UPLOADED,
+  WHICH_ROUTE,
+  HOME_ROUTE,
+} from '../types';
 
 export const addTweet = (tweet) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
@@ -86,5 +92,17 @@ export const uploadImg = (file) => {
           });
       }
     );
+  };
+};
+
+export const whichRoute = () => {
+  return {
+    type: WHICH_ROUTE,
+  };
+};
+
+export const homeRoute = () => {
+  return {
+    type: HOME_ROUTE,
   };
 };
