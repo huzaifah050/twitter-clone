@@ -6,6 +6,11 @@ import { useSelector } from 'react-redux';
 
 function MainDisplay() {
   const auth = useSelector((state) => state.firebase.auth);
+
+  if (!auth.isLoaded) {
+    console.log('dfgfdgdf');
+    return null;
+  }
   if (!auth.uid) return <Redirect to="/welcome" />;
   // if (isLoaded && !auth.uid) return <Redirect to="/welcome" />;
   // if (isLoaded && isEmpty) return <Redirect to="/welcome" />;
