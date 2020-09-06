@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/core';
 import SIngleTweet from './SIngleTweet';
 
-function TweetTabs({ tweets, uid, picture }) {
+function TweetTabs({ tweets, uid, pictures }) {
   return (
     <Tabs isFitted variant="enclosed">
       <TabList mb="1em">
@@ -14,9 +14,12 @@ function TweetTabs({ tweets, uid, picture }) {
           {tweets ? (
             tweets.map((tweet) => {
               if (tweet.p_id === uid) {
-                console.log(tweet);
                 return (
-                  <SIngleTweet key={tweet.id} picture={picture} tweet={tweet} />
+                  <SIngleTweet
+                    key={tweet.id}
+                    pictures={pictures}
+                    tweet={tweet}
+                  />
                 );
               }
             })
