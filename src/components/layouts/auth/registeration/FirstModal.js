@@ -69,9 +69,9 @@ function FirstModal(props) {
     console.log('Form data', values);
     props.signUp(values);
 
-    console.log(isLogged);
+    // console.log(isLogged);
     console.log('modal submit');
-    history.push('/');
+    // history.push('/');
     // if (isLogged) {
 
     //   console.log(isLogged);
