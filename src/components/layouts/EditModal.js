@@ -21,13 +21,13 @@ function EditModal({ user }) {
 
   let name = user.name;
   let handle = user.handle;
-  console.log(name);
+  // console.log(name);
   const initialValues = {
     name: name,
     bio: '',
     handle: handle,
   };
-  console.log(name);
+  // console.log(name);
   const validationScheme = Yup.object({
     name: Yup.string().required('Hey, alien, here on earth we have names 😔 '),
     bio: Yup.string('Tell us something about you?'),
@@ -54,7 +54,13 @@ function EditModal({ user }) {
             <SlideIn in={isOpen}>
               {(styles) => (
                 <Form>
-                  <Modal isOpen={isOpen} onClose={onClose}>
+                  <Modal
+                    isOpen={isOpen}
+                    onClose={() => {
+                      formik.resetForm(initialValues);
+                      onClose();
+                    }}
+                  >
                     <ModalOverlay opacity={styles.opacity} />
                     <ModalContent {...styles}>
                       <ModalHeader>Create your account</ModalHeader>
