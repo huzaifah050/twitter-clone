@@ -10,3 +10,5 @@ export const ADD_TODO_FAILURE = 'ADD_TODO_FAILURE';
 export const IMAGE_UPLOADED = 'IMAGE_UPLOADED';
 export const WHICH_ROUTE = 'WHICH_ROUTE';
 export const HOME_ROUTE = 'HOME_ROUTE';
+export const DELETE_TWEET = 'DELETE_TWEET';
+export const DELETE_TWEET_ERROR = 'DELETE_TWEET_ERROR';

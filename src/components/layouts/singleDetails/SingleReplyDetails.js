@@ -6,14 +6,14 @@ import { useDispatch } from 'react-redux';
 import {
   whichRoute,
   homeRoute,
-  liked,
-  retweet,
-  deleteTweet,
-} from '../store/actions/projectActions';
-import userImg from '../../imgs/user.jpg';
-import ReplyModal from './singleDetails/ReplyModal';
+  likeReply,
+  replyRetweet,
+  deleteReply,
+} from '../../store/actions/projectActions';
+import userImg from '../../../imgs/user.jpg';
+import ReplyModal from './ReplyModal';
 
-function SIngleTweet({ tweet, pictures, auth }) {
+function SingleReplyDetails({ tweet, pictures, auth, tweet_id }) {
   // console.log(tweet);
   // const atHome = useSelector((state) => state.tweeter.atHome);
   // console.log(atHome);
@@ -29,16 +29,16 @@ function SIngleTweet({ tweet, pictures, auth }) {
   }
 
   const handleLike = (id) => {
-    dispatch(liked(id));
+    dispatch(likeReply(tweet_id, id));
   };
 
   const handleRetweet = (id) => {
-    dispatch(retweet(id));
+    dispatch(replyRetweet(tweet_id, id));
+  };
+  const handleDelete = (id) => {
+    dispatch(deleteReply(tweet_id, id));
   };
 
-  const handleDelete = (id) => {
-    dispatch(deleteTweet(id));
-  };
   let picture = pictures
     ? pictures.find((picture) => picture.id === tweet.p_id)
     : null;
@@ -93,6 +93,7 @@ function SIngleTweet({ tweet, pictures, auth }) {
                   }}
                 ></i>
               )}
+
               {tweet.ppleRetweeted.length > 0 ? (
                 <p className="interaction-count">
                   {tweet.ppleRetweeted.length}
@@ -124,9 +125,7 @@ function SIngleTweet({ tweet, pictures, auth }) {
               {tweet.ppleLiked.length > 0 ? (
                 <p className="interaction-count">{tweet.ppleLiked.length}</p>
               ) : (
-                <p className="interaction-count" style={{ color: 'white' }}>
-                  0
-                </p>
+                <p className="interaction-count"></p>
               )}
             </div>
             <div className="interactions-container">
@@ -144,4 +143,4 @@ function SIngleTweet({ tweet, pictures, auth }) {
   );
 }
 
-export default SIngleTweet;
+export default SingleReplyDetails;

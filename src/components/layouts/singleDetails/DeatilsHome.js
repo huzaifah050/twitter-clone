@@ -5,14 +5,36 @@ import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import SIngleTweet from '../SIngleTweet';
 import Loading from '../Loading';
+import SingleReplyDetails from './SingleReplyDetails';
 
 function DeatilsHome(props) {
-  const { id, tweets, pictures } = props;
+  const { id, tweets, pictures, replies, auth } = props;
 
   const atHome = useSelector((state) => state.tweeter.atHome);
-  // console.log(atHome);
+
   const tweet = tweets ? tweets.find((tweet) => tweet.id === id) : null;
-  // console.log(tweet);
+
+  const reply = replies
+    ? replies.map((reply) => {
+        return (
+          // <SIngleTweet
+          //   auth={auth}
+          //   key={reply.id}
+          //   tweet={reply}
+          //   pictures={pictures}
+          // />
+
+          <SingleReplyDetails
+            auth={auth}
+            key={reply.id}
+            tweet={reply}
+            pictures={pictures}
+            tweet_id={tweet.id}
+          />
+        );
+      })
+    : null;
+
   return (
     <div className="home-section col">
       <div className="home-content">
@@ -39,10 +61,11 @@ function DeatilsHome(props) {
         <div className="all-tweets">
           <div className="single-details">
             {tweet ? (
-              <SIngleTweet tweet={tweet} pictures={pictures} />
+              <SIngleTweet tweet={tweet} auth={auth} pictures={pictures} />
             ) : (
               <Loading />
             )}
+            {reply}
           </div>
         </div>
       </div>
@@ -53,10 +76,20 @@ function DeatilsHome(props) {
 const mapStateToProps = (state) => ({
   tweets: state.firestore.ordered.tweets,
   pictures: state.firestore.ordered.pictures,
+  auth: state.firebase.auth,
+  // replies: state.firestore.ordered.replies,
 });
 
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([{ collection: 'tweets' }]),
   firestoreConnect([{ collection: 'pictures' }])
+  // firestoreConnect((props) => [
+  //   {
+  //     collection: 'tweets',
+  //     doc: `${props.id}`,
+  //     subcollections: [{ collection: 'replies' }],
+  //     storeAs: 'replies',
+  //   },
+  // ])
 )(DeatilsHome);

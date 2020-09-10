@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/core';
 import SIngleTweet from './SIngleTweet';
 
-function TweetTabs({ tweets, uid, pictures }) {
+function TweetTabs({ tweets, uid, pictures, auth }) {
   return (
     <Tabs isFitted variant="enclosed">
       <TabList mb="1em">
@@ -13,12 +13,16 @@ function TweetTabs({ tweets, uid, pictures }) {
         <TabPanel>
           {tweets ? (
             tweets.map((tweet) => {
-              if (tweet.p_id === uid) {
+              if (
+                tweet.p_id === uid ||
+                tweet.ppleRetweeted.includes(auth.uid)
+              ) {
                 return (
                   <SIngleTweet
                     key={tweet.id}
                     pictures={pictures}
                     tweet={tweet}
+                    auth={auth}
                   />
                 );
               }
@@ -28,7 +32,22 @@ function TweetTabs({ tweets, uid, pictures }) {
           )}
         </TabPanel>
         <TabPanel>
-          <p>two!</p>
+          {tweets ? (
+            tweets.map((tweet) => {
+              if (tweet.ppleLiked.includes(auth.uid)) {
+                return (
+                  <SIngleTweet
+                    key={tweet.id}
+                    pictures={pictures}
+                    tweet={tweet}
+                    auth={auth}
+                  />
+                );
+              }
+            })
+          ) : (
+            <h1>You have no liked tweets</h1>
+          )}
         </TabPanel>
       </TabPanels>
     </Tabs>
