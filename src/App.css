@@ -311,6 +311,11 @@ img {
   width: 89%;
 }
 
+.single-tweet-controls {
+  width: 89%;
+  margin-left: 50px;
+}
+
 .imgg {
   width: 55px;
   height: 55px;
@@ -370,6 +375,51 @@ img {
   font-weight: 400;
   color: var(--light-gray);
 }
+
+.reply-tweet-container {
+  display: flex;
+  justify-content: space-between;
+  /* background-color: greenyellow; */
+}
+
+.reply-img {
+  width: 15%;
+  /* background-color: greenyellow; */
+}
+
+.reply-tweet {
+  width: 84%;
+  /* background-color: red; */
+}
+
+.reply-to {
+  padding-top: 15px;
+}
+
+.reply-to p {
+  color: var(--dark-gray);
+}
+
+.reply-to p span {
+  color: var(--main-blue);
+  font-weight: 600;
+}
+
+.line {
+  position: absolute;
+  top: 133px;
+  left: 50px;
+  width: 2px;
+  height: 30px;
+  background-color: var(--light-gray);
+  /* color: greenyellow; */
+}
+
+.add-reply-container {
+  margin-top: 15px;
+  /* background-color: red; */
+}
+
 .top-search-bar {
   position: fixed;
   width: 30%;
