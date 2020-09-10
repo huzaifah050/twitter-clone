@@ -1,5 +1,4 @@
 import React from 'react';
-import img from '../../imgs/img.jpg';
 import { connect } from 'react-redux';
 import { addTweet } from '../store/actions/projectActions';
 import { Formik, Form, Field } from 'formik';
