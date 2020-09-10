@@ -5,11 +5,10 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import Loading from './Loading';
-import { useSelector } from 'react-redux';
 import userImg from '../../imgs/user.jpg';
 
-function Home({ tweets, pictures }) {
-  const auth = useSelector((state) => state.firebase.auth);
+function Home({ tweets, pictures, auth }) {
+  // const auth = useSelector((state) => state.firebase.auth);
   const picture = pictures
     ? pictures.find((picture) => picture.id === auth.uid)
     : null;
@@ -32,6 +31,7 @@ function Home({ tweets, pictures }) {
                   key={tweet.id}
                   userImg={userImg}
                   tweet={tweet}
+                  auth={auth}
                 />
               );
             })
@@ -47,6 +47,7 @@ function Home({ tweets, pictures }) {
 const mapStateToProps = (state) => ({
   tweets: state.firestore.ordered.tweets,
   pictures: state.firestore.ordered.pictures,
+  auth: state.firebase.auth,
 });
 
 export default compose(
