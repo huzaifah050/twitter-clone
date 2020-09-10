@@ -7,12 +7,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import Loading from '../layouts/Loading';
 import EditModal from './EditModal';
 
-function ProfileHome({ users, tweets, uid, pictures }) {
-  const auth = useSelector((state) => state.firebase.auth);
+function ProfileHome({ users, tweets, auth, pictures }) {
+  // const auth = useSelector((state) => state.firebase.auth);
   if (!auth.uid) return <Redirect to="/welcome" />;
   // console.log(auth.uid);
   // console.log(users);
@@ -66,7 +65,7 @@ function ProfileHome({ users, tweets, uid, pictures }) {
                 <span>{user.followers}</span> Followers
               </p>
             </div>
-            <EditModal user={user} uid={uid} />
+            <EditModal user={user} uid={auth.uid} />
           </div>
 
           <div className="all-tweets all-tweets-profile">
@@ -74,7 +73,8 @@ function ProfileHome({ users, tweets, uid, pictures }) {
               pictures={pictures}
               userImg={userImg}
               tweets={tweets}
-              uid={uid}
+              uid={auth.uid}
+              auth={auth}
             />
           </div>
         </div>
@@ -87,7 +87,8 @@ function ProfileHome({ users, tweets, uid, pictures }) {
 const mapStateToProps = (state) => ({
   users: state.firestore.ordered.users,
   tweets: state.firestore.ordered.tweets,
-  uid: state.firebase.auth.uid,
+  // uid: state.firebase.auth.uid,
+  auth: state.firebase.auth,
   pictures: state.firestore.ordered.pictures,
 });
 
