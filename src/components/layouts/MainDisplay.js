@@ -11,7 +11,7 @@ function MainDisplay({ users, tweets, auth, pictures }) {
     return null;
   }
   if (!auth.uid) return <Redirect to="/welcome" />;
-  // if (!auth.emailVerified) return <Redirect to="/verify_email" />;
+  if (!auth.emailVerified) return <Redirect to="/verify_email" />;
   return (
     <div className="parent-container">
       <div className="control-panel col">
