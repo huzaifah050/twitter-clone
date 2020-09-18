@@ -1,7 +1,8 @@
 import React from 'react';
+import SendTweetModal from './SendTweetModal';
 
-function BigTweetBtn() {
-  return <button className="big-tweet-btn">Tweet</button>;
+function BigTweetBtn({ auth }) {
+  return <SendTweetModal auth={auth} />;
 }
 
 export default BigTweetBtn;

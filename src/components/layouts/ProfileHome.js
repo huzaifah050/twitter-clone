@@ -3,24 +3,20 @@ import { Link } from 'react-router-dom';
 import userImg from '../../imgs/user.jpg';
 import showImg from '../../imgs/showcase.png';
 import TweetTabs from './TweetTabs';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
 import { Redirect } from 'react-router-dom';
 import Loading from '../layouts/Loading';
-import EditModal from './EditModal';
+import TestEditModal from './TestEditModal';
 
 function ProfileHome({ users, tweets, auth, pictures }) {
   // const auth = useSelector((state) => state.firebase.auth);
   if (!auth.uid) return <Redirect to="/welcome" />;
-  // console.log(auth.uid);
-  // console.log(users);
+
   if (users && pictures) {
     const user = users ? users.find((user) => user.id === auth.uid) : null;
     const picture = pictures
       ? pictures.find((picture) => picture.id === auth.uid)
       : null;
-    // console.log(picture);
+
     return (
       <div className="home-section col">
         <div className="home-content">
@@ -65,7 +61,8 @@ function ProfileHome({ users, tweets, auth, pictures }) {
                 <span>{user.followers}</span> Followers
               </p>
             </div>
-            <EditModal user={user} uid={auth.uid} />
+            <TestEditModal user={user} uid={auth.uid} />
+            {/* <EditModal user={user} uid={auth.uid} /> */}
           </div>
 
           <div className="all-tweets all-tweets-profile">
@@ -80,21 +77,9 @@ function ProfileHome({ users, tweets, auth, pictures }) {
         </div>
       </div>
     );
+  } else {
+    return <Loading />;
   }
-  return <Loading />;
 }
 
-const mapStateToProps = (state) => ({
-  users: state.firestore.ordered.users,
-  tweets: state.firestore.ordered.tweets,
-  // uid: state.firebase.auth.uid,
-  auth: state.firebase.auth,
-  pictures: state.firestore.ordered.pictures,
-});
-
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([{ collection: 'users' }]),
-  firestoreConnect([{ collection: 'tweets' }]),
-  firestoreConnect([{ collection: 'pictures' }])
-)(ProfileHome);
+export default ProfileHome;

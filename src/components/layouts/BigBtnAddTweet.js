@@ -1,12 +1,11 @@
 import React from 'react';
-import userImg from '../../../imgs/user.jpg';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { addReply } from '../../store/actions/projectActions';
+import userImg from '../../imgs/user.jpg';
 import { connect } from 'react-redux';
+import { addTweet } from '../store/actions/projectActions';
 
-function AddReply({ onClose, auth, t_id, addReply }) {
-  console.log(t_id);
+function BigBtnAddTweet({ auth, addTweet, onClose }) {
   const initialValues = {
     tweet: '',
   };
@@ -15,14 +14,17 @@ function AddReply({ onClose, auth, t_id, addReply }) {
     tweet: Yup.string().required().max(140),
   });
 
+  function close() {
+    onClose();
+  }
+
   const onsubmit = (values, onSubmitProps) => {
     console.log('Form data', values);
-    addReply(values.tweet, t_id);
+    addTweet(values.tweet, close);
     onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm();
-    onClose();
   };
-  console.log(auth);
+
   return (
     <Formik
       initialValues={initialValues}
@@ -72,7 +74,7 @@ function AddReply({ onClose, auth, t_id, addReply }) {
                           }
                           className="tweet-btn ccol"
                         >
-                          Reply
+                          Tweet
                         </button>
                       </div>
                     </div>
@@ -88,7 +90,7 @@ function AddReply({ onClose, auth, t_id, addReply }) {
 }
 
 const mapDispatchToProps = {
-  addReply,
+  addTweet,
 };
 
-export default connect(null, mapDispatchToProps)(AddReply);
+export default connect(null, mapDispatchToProps)(BigBtnAddTweet);

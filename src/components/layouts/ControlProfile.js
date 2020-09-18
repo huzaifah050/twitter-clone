@@ -1,18 +1,29 @@
 import React from 'react';
-import img from '../../imgs/img1.JPG';
+import img from '../../imgs/user.jpg';
+import Loading from './Loading';
 
-function ControlProfile() {
-  return (
-    <div className="p-circle">
-      <div className="profile-details-img p-col">
-        <img src={img} className="p-img" alt="" />
+function ControlProfile({ users, auth }) {
+  const user = users ? users.find((user) => user.id === auth.uid) : null;
+
+  if (user) {
+    return (
+      <div className="p-circle">
+        <div className="profile-details-img p-col">
+          {user.profileImg ? (
+            <img src={user.profileImg} className="p-img" alt="" />
+          ) : (
+            <img src={img} className="p-img" alt="" />
+          )}
+        </div>
+        <div className="profile-circle p-col">
+          <h3>{user.name}</h3>
+          <p>{'@' + user.handle}</p>
+        </div>
       </div>
-      <div className="profile-circle p-col">
-        <h3>Human being</h3>
-        <p>@umfrumf</p>
-      </div>
-    </div>
-  );
+    );
+  } else {
+    return <Loading />;
+  }
 }
 
 export default ControlProfile;

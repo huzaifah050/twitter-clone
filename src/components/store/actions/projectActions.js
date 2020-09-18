@@ -6,9 +6,11 @@ import {
   HOME_ROUTE,
   DELETE_TWEET_ERROR,
   DELETE_TWEET,
+  EDIT_SUCCESS,
+  EDIT_FAILURE,
 } from '../types';
 
-export const addTweet = (tweet) => {
+export const addTweet = (tweet, extraParams) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const profile = getState().firebase.profile;
     console.log(getState().firebase);
@@ -33,6 +35,7 @@ export const addTweet = (tweet) => {
       .then(() => {
         console.log('success');
         dispatch({ type: ADD_TODO, tweet });
+        extraParams()
       })
       .catch((err) => {
         console.log(err);
@@ -254,13 +257,13 @@ export const uploadImg = (file) => {
                 console.log(user);
 
                 dispatch({ type: IMAGE_UPLOADED, payload: url });
+              })
+              .then(() => {
+                console.log(uid);
+                return firestore.collection(`users`).doc(uid).update({
+                  profileImg: url,
+                });
               });
-            // .then(() => {
-            //   console.log(uid);
-            //   return firestore.collection(`users`).doc(uid).set({
-            //     imgURl: url,
-            //   });
-            // });
           })
           .catch((err) => {
             console.log(err.message);
@@ -310,6 +313,29 @@ export const deleteReply = (tweet_id, reply_id) => {
       })
       .catch((err) => {
         dispatch({ type: DELETE_TWEET_ERROR, err: err.message });
+      });
+  };
+};
+
+export const editProfile = (id, data, close) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection('users')
+      .doc(id)
+      .update({
+        name: data.name,
+        handle: data.handle,
+        bio: data.bio,
+      })
+      .then(() => {
+        console.log('edit success');
+        dispatch({ type: EDIT_SUCCESS });
+        close();
+      })
+      .catch((err) => {
+        console.log(err.message);
+        dispatch({ type: EDIT_FAILURE, err: err.message });
       });
   };
 };

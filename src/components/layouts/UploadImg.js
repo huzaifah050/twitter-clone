@@ -22,6 +22,7 @@ class UploadImg extends Component {
   };
 
   handleSubmit = (e) => {
+    if (!this.state.image) return;
     this.props.uploadImg(this.state);
   };
 
@@ -29,7 +30,13 @@ class UploadImg extends Component {
     return (
       <div>
         <input type="file" name="" id="" onChange={this.handleChange} />
-        <button onClick={this.handleSubmit}>Upload</button>
+        <button
+          onClick={this.handleSubmit}
+          disabled={Boolean(!this.state.image)}
+          className="imgUploadBtn"
+        >
+          Upload
+        </button>
       </div>
     );
   }

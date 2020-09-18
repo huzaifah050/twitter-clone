@@ -1,14 +1,10 @@
 import React from 'react';
 import AddTweet from './AddTweet';
 import SIngleTweet from './SIngleTweet';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
 import Loading from './Loading';
 import userImg from '../../imgs/user.jpg';
 
-function Home({ tweets, pictures, auth }) {
-  // const auth = useSelector((state) => state.firebase.auth);
+function Home({ tweets, pictures, auth, users }) {
   const picture = pictures
     ? pictures.find((picture) => picture.id === auth.uid)
     : null;
@@ -32,6 +28,7 @@ function Home({ tweets, pictures, auth }) {
                   userImg={userImg}
                   tweet={tweet}
                   auth={auth}
+                  users={users}
                 />
               );
             })
@@ -44,14 +41,4 @@ function Home({ tweets, pictures, auth }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  tweets: state.firestore.ordered.tweets,
-  pictures: state.firestore.ordered.pictures,
-  auth: state.firebase.auth,
-});
-
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([{ collection: 'tweets' }]),
-  firestoreConnect([{ collection: 'pictures' }])
-)(Home);
+export default Home;

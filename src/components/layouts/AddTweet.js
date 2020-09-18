@@ -10,7 +10,7 @@ function AddTweet({ picture, userImg, ...props }) {
   };
 
   const validationScheme = Yup.object({
-    tweet: Yup.string().required().min(1),
+    tweet: Yup.string().required().max(140),
   });
 
   const onsubmit = (values, onSubmitProps) => {
@@ -39,6 +39,7 @@ function AddTweet({ picture, userImg, ...props }) {
                 <div className="form-details">
                   <Form>
                     <Field
+                      as="textarea"
                       type="text"
                       name="tweet"
                       placeholder="What's happening?"

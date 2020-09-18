@@ -1,10 +1,12 @@
 import React from 'react';
-import { CircularProgress } from '@chakra-ui/core';
+import spinner from '../../imgs/spinner.gif';
 
 function Loading() {
   return (
     <div>
-      <CircularProgress isIndeterminate color="blue"></CircularProgress>
+      <div class="display-loading">
+        <img src={spinner} alt="" />
+      </div>
     </div>
   );
 }

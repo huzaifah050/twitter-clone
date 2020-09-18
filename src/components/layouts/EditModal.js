@@ -19,13 +19,13 @@ import UploadImg from './UploadImg';
 function EditModal({ user }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  let name = user.name;
-  let handle = user.handle;
+  // let name = user.name;
+  // let handle = user.handle;
   // console.log(name);
   const initialValues = {
-    name: name,
+    name: user.name,
     bio: '',
-    handle: handle,
+    handle: user.handle,
   };
   // console.log(name);
   const validationScheme = Yup.object({
@@ -35,7 +35,9 @@ function EditModal({ user }) {
   });
 
   const onsubmit = (values) => {
-    console.log('Form data', values);
+    // console.log('Form data', values);
+    console.log(1);
+    // onClose();
   };
 
   return (
@@ -63,7 +65,7 @@ function EditModal({ user }) {
                   >
                     <ModalOverlay opacity={styles.opacity} />
                     <ModalContent {...styles}>
-                      <ModalHeader>Create your account</ModalHeader>
+                      <ModalHeader>Update your account</ModalHeader>
                       <ModalCloseButton />
                       <ModalBody pb={6}>
                         <UploadImg />
@@ -91,9 +93,9 @@ function EditModal({ user }) {
 
                       <ModalFooter>
                         <Button variantColor="blue" mr={3}>
-                          Save
+                          Update
                         </Button>
-                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={onsubmit}>Cancel</Button>
                       </ModalFooter>
                     </ModalContent>
                   </Modal>

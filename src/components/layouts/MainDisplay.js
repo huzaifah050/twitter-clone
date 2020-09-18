@@ -2,30 +2,44 @@ import React from 'react';
 import ControlPanel from './ControlPanel';
 import RightContainer from './secondGrid/RightContainer';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
-function MainDisplay() {
-  const auth = useSelector((state) => state.firebase.auth);
-
+function MainDisplay({ users, tweets, auth, pictures }) {
   if (!auth.isLoaded) {
-    console.log('dfgfdgdf');
     return null;
   }
   if (!auth.uid) return <Redirect to="/welcome" />;
-  // if (isLoaded && !auth.uid) return <Redirect to="/welcome" />;
-  // if (isLoaded && isEmpty) return <Redirect to="/welcome" />;
-
+  // if (!auth.emailVerified) return <Redirect to="/verify_email" />;
   return (
     <div className="parent-container">
       <div className="control-panel col">
-        <ControlPanel />
+        <ControlPanel users={users} auth={auth} />
       </div>
 
       <div className="float-right">
-        <RightContainer />
+        <RightContainer
+          users={users}
+          tweets={tweets}
+          auth={auth}
+          pictures={pictures}
+        />
       </div>
     </div>
   );
 }
 
-export default MainDisplay;
+const mapStateToProps = (state) => ({
+  tweets: state.firestore.ordered.tweets,
+  pictures: state.firestore.ordered.pictures,
+  auth: state.firebase.auth,
+  users: state.firestore.ordered.users,
+});
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: 'tweets', orderBy: ['date', 'desc'] }]),
+  firestoreConnect([{ collection: 'pictures' }]),
+  firestoreConnect([{ collection: 'users' }])
+)(MainDisplay);

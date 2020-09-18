@@ -7,11 +7,11 @@ import { firestoreConnect } from 'react-redux-firebase';
 
 import React from 'react';
 
-function DetailsRight({ id, replies }) {
+function DetailsRight({ id, replies, users }) {
   return (
     <div className="container">
       <DeatilsHome id={id} replies={replies} />
-      <SearchContainer />
+      <SearchContainer users={users} />
     </div>
   );
 }

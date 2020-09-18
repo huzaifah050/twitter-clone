@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FirstModal from './auth/registeration/FirstModal';
-import { useSelector } from 'react-redux';
+import { useSelector, connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
 
-function WelcomePage() {
+function WelcomePage({ users }) {
   const auth = useSelector((state) => state.firebase.auth);
   if (!auth.isLoaded) return null;
   if (auth.uid) return <Redirect to="/" />;
@@ -35,11 +37,7 @@ function WelcomePage() {
             <h2>See what’s happening in the world right now</h2>
             <p>Join Twitter today.</p>
             <div className="second-half-btns">
-              {/* <button className="sign-up" type="button">
-                Sign up
-              </button> */}
-              <FirstModal />
-              {/* <ParentRegisteration /> */}
+              <FirstModal users={users} />
               <Link to="/login">
                 <button className="log-in" type="button">
                   Log in
@@ -53,12 +51,15 @@ function WelcomePage() {
   );
 }
 
-// const mapStateToProps = (state) => ({
-
-// })
+const mapStateToProps = (state) => ({
+  users: state.firestore.ordered.users,
+});
 
 // const mapDispatchToProps = {
 
 // }
 
-export default WelcomePage;
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: 'users' }])
+)(WelcomePage);

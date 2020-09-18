@@ -14,7 +14,7 @@ import userImg from '../../imgs/user.jpg';
 import ReplyModal from './singleDetails/ReplyModal';
 import PopOver from './PopOver';
 
-function SIngleTweet({ tweet, pictures, auth, users }) {
+function ProfileSingleTweet({ tweet, pictures, auth, users }) {
   let location = useLocation();
 
   const dispatch = useDispatch();
@@ -142,4 +142,4 @@ function SIngleTweet({ tweet, pictures, auth, users }) {
   );
 }
 
-export default SIngleTweet;
+export default ProfileSingleTweet;

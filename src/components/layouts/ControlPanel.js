@@ -4,7 +4,7 @@ import IconLink from './IconLink';
 import ControlProfile from './ControlProfile';
 import { Link } from 'react-router-dom';
 
-function ControlPanel() {
+function ControlPanel({ users, auth }) {
   return (
     <div className="control-panel-content">
       <div className="icons-section">
@@ -21,12 +21,12 @@ function ControlPanel() {
           </Link>
           <IconLink link={'More'} iconn={'more_horiz'} />
 
-          <BigTweetBtn />
+          <BigTweetBtn auth={auth} />
         </div>
       </div>
 
       <div className="profile-details">
-        <ControlProfile />
+        <ControlProfile users={users} auth={auth} />
       </div>
     </div>
   );

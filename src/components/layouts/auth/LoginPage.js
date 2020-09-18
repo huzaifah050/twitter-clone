@@ -3,26 +3,24 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import FormikControl from '../formik/FormikControl';
 import { connect } from 'react-redux';
-import { login } from '../../store/actions/authActions';
-import { useHistory } from 'react-router-dom';
+import { login, clean } from '../../store/actions/authActions';
+import { Link } from 'react-router-dom';
 import { useToast } from '@chakra-ui/core';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-function LoginPage(props) {
+function LoginPage({ loading, error, ...props }) {
+  useEffect(() => {
+    return () => {
+      clean();
+    };
+  }, []);
+
   const initialValues = {
     email: '',
     password: '',
   };
   const auth = useSelector((state) => state.firebase.auth);
-  const isLogged = useSelector((state) => state.auth.isLogged);
-  console.log(isLogged);
-  const history = useHistory();
-
-  // useEffect(() => {
-  //   if (auth.uid) return <Redirect to="/" />;
-  //   console.log('test');
-  // }, [auth.uid]);
 
   const toast = useToast();
   const fnToast = () => {
@@ -35,24 +33,6 @@ function LoginPage(props) {
     });
   };
 
-  const toastFail = () => {
-    toast({
-      title: 'Logged in',
-      description: 'Log in fail',
-      status: 'warning',
-      duration: 10000,
-      isClosable: true,
-    });
-  };
-
-  function checkToast() {
-    if (auth.uid) {
-      fnToast();
-    } else {
-      toastFail();
-    }
-  }
-
   const validationScheme = Yup.object({
     email: Yup.string()
       .email('Invalid email format 😔 ')
@@ -62,32 +42,11 @@ function LoginPage(props) {
       .min(8, 'Password is too short - should be 8 characters minimum. 😔 '),
   });
 
-  // const wait = () => {
-  //   console.log('calling..');
-
-  //   const time = setTimeout(() => {
-  //     history.push('/');
-  //   }, 3000);
-
-  //   clearTimeout(time);
-
-  //   console.log('wait..');
-  // };
-
-  const onsubmit = (values, onSubmitProps) => {
-    console.log('Form data', values);
-    props.login(values);
-    console.log(isLogged);
-    if (isLogged) {
-      history.push('/');
-      checkToast();
-    }
-    // wait();
-    // fnToast();
-
-    onSubmitProps.isSubmitting(false);
+  const onsubmit = (values) => {
+    props.login(values, fnToast);
   };
   if (auth.uid) return <Redirect to="/" />;
+  if (auth.uid && !auth.emailVerified) return <Redirect to="/verify_email" />;
 
   return (
     <Formik
@@ -100,6 +59,7 @@ function LoginPage(props) {
         return (
           <div className="login-container">
             <h2 className="login-header">Log in to Twitter</h2>
+            <p className="login-error">{error ? error : null}</p>
 
             <Form>
               <FormikControl
@@ -116,36 +76,20 @@ function LoginPage(props) {
                 name="password"
                 autoComplete="new-password"
               />
-              {formik.isSubmitting ? (
-                <button
-                  className="log"
-                  type="submit"
-                  disabled={formik.isSubmitting}
-                >
-                  Logging in..
-                </button>
-              ) : (
-                <button
-                  className="log"
-                  type="submit"
-                  disabled={!formik.isValid}
-                >
-                  Log in
-                </button>
-              )}
-              {/* <button
+
+              <button
                 className="log"
                 type="submit"
-                disabled={!formik.isValid && formik.isSubmitting}
+                disabled={!formik.isValid || loading}
               >
-                Log in
-              </button> */}
+                {loading ? 'Logging in..' : 'Log in'}
+              </button>
             </Form>
 
             <div className="forget-details">
-              <a href="/">Forgot Password?</a>{' '}
+              <Link to="/recover_password">Forgot Password?</Link>
               <span className="bull">&bull;</span>
-              <a href="/register.html">Sign up for Twitter</a>
+              <Link to="/welcome">Sign up for Twitter</Link>
             </div>
           </div>
         );
@@ -154,8 +98,14 @@ function LoginPage(props) {
   );
 }
 
+const mapStateToProps = ({ auth }) => ({
+  loading: auth.login.loading,
+  error: auth.login.error,
+});
+
 const mapDispatchToProps = {
   login,
+  clean,
 };
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

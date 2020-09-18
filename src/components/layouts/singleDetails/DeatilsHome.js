@@ -17,13 +17,6 @@ function DeatilsHome(props) {
   const reply = replies
     ? replies.map((reply) => {
         return (
-          // <SIngleTweet
-          //   auth={auth}
-          //   key={reply.id}
-          //   tweet={reply}
-          //   pictures={pictures}
-          // />
-
           <SingleReplyDetails
             auth={auth}
             key={reply.id}

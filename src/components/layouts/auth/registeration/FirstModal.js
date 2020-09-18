@@ -10,31 +10,27 @@ import {
   useDisclosure,
   Button,
   SlideIn,
-  useToast,
 } from '@chakra-ui/core';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../../formik/FormikControl';
-import { signUp } from '../../../store/actions/authActions';
+import { signUp, handleError } from '../../../store/actions/authActions';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
-function FirstModal(props) {
-  const isLogged = useSelector((state) => state.auth.isLogged);
-
+function FirstModal({
+  users,
+  handleError,
+  registerError,
+  loading,
+  error,
+  ...props
+}) {
+  console.log(users);
+  console.log(registerError);
   const [scrollBehavior] = React.useState('outside');
-  const toast = useToast();
 
-  const fnToast = () => {
-    toast({
-      title: 'Account created.',
-      description: "We've created your account for you.",
-      status: 'success',
-      duration: 5000,
-      isClosable: true,
-    });
-  };
+  const userHandles = users ? users.map((user) => user.handle) : null;
+  console.log(userHandles);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -63,19 +59,16 @@ function FirstModal(props) {
       .required('Work not done..!'),
   });
 
-  const history = useHistory();
-
-  const onsubmit = (values) => {
+  const onsubmit = async (values) => {
     console.log('Form data', values);
+
+    if (userHandles.includes(values.handle)) {
+      handleError();
+      return;
+    }
+
     props.signUp(values);
-
-    // console.log(isLogged);
     console.log('modal submit');
-    // history.push('/');
-    // if (isLogged) {
-
-    //   console.log(isLogged);
-    // }
   };
 
   return (
@@ -143,14 +136,22 @@ function FirstModal(props) {
                         />
                       </ModalBody>
 
+                      <div className="register-error">
+                        {registerError ? (
+                          <p className="handle-error">
+                            Handle already taken, try another one !
+                          </p>
+                        ) : null}
+                        {error ? <p className="handle-error">{error}</p> : null}
+                      </div>
                       <ModalFooter>
                         <Button
                           type="submit"
                           mr={3}
-                          disabled={!formik.isValid}
+                          disabled={!formik.isValid || loading}
                           style={{ background: '#1da1f2', color: '#f5f8fa' }}
                         >
-                          Sign up!
+                          {loading ? 'Registering..' : 'Sign up!'}
                         </Button>
 
                         <Button onClick={onClose}>Cancel</Button>
@@ -167,8 +168,15 @@ function FirstModal(props) {
   );
 }
 
+const mapStateToProps = ({ auth }) => ({
+  registerError: auth.register.handleError,
+  loading: auth.signUp.loading,
+  error: auth.signUp.error,
+});
+
 const mapDispatchToProps = {
   signUp,
+  handleError,
 };
 
-export default connect(null, mapDispatchToProps)(FirstModal);
+export default connect(mapStateToProps, mapDispatchToProps)(FirstModal);
