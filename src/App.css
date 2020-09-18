@@ -218,6 +218,7 @@ textarea {
   font-size: 18px;
   color: var(--text-bllack);
 }
+
 .form-details textarea {
   height: 100px;
 }
@@ -230,6 +231,7 @@ textarea {
   font-size: 16px;
   letter-spacing: 1px;
   color: var(--light-gray);
+  padding-top: 5px;
 }
 
 .tweet-btn {

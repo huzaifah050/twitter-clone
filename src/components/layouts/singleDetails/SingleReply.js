@@ -3,7 +3,6 @@ import userImg from '../../../imgs/user.jpg';
 import moment from 'moment';
 
 function SingleReply({ tweet, picture }) {
-  console.log(picture);
   return (
     <div className="reply-tweet-container">
       <div className="reply-img">

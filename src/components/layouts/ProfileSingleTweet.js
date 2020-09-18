@@ -12,7 +12,6 @@ import {
 } from '../store/actions/projectActions';
 import userImg from '../../imgs/user.jpg';
 import ReplyModal from './singleDetails/ReplyModal';
-import PopOver from './PopOver';
 
 function ProfileSingleTweet({ tweet, pictures, auth, users }) {
   let location = useLocation();

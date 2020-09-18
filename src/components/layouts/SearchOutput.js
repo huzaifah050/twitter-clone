@@ -1,5 +1,5 @@
 import React from 'react';
-import img from '../../imgs/img1.JPG';
+import img from '../../imgs/user.jpg';
 
 function SearchOutput({ user }) {
   if (user) {

@@ -97,6 +97,7 @@ function AddTweet({ picture, userImg, ...props }) {
                 <div className="form-details">
                   <Form>
                     <Field
+                      as="textarea"
                       type="text"
                       name="tweet"
                       placeholder="What's happening?"

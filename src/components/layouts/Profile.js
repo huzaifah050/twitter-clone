@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 
 function Profile({ users, tweets, auth, pictures }) {
   if (!auth.uid) return <Redirect to="/welcome" />;
-  if (!auth.emailVerified) return <Redirect to="/verify_email" />;
+  // if (!auth.emailVerified) return <Redirect to="/verify_email" />;
 
   return (
     <div className="parent-container">
